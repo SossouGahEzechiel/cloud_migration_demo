@@ -1,0 +1,46 @@
+services:
+  app:
+    build: .
+    container_name: laravel_cm_demo_app
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+    networks:
+      - laravel
+    command: php artisan serve --host=0.0.0.0 --port=8000
+
+  db:
+    image: postgres:16-alpine
+    container_name: postgres_cm_demo
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - laravel
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis_mc_demo_cache
+    restart: unless-stopped
+    networks:
+      - laravel
+
+volumes:
+  pgdata:
+    driver: local
+
+networks:
+  laravel:
+    driver: bridge
