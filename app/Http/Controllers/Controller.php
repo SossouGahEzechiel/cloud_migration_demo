@@ -6,9 +6,9 @@ use Illuminate\Routing\Controller as BaseController;
 use OpenApi\Attributes as OA;
 
 #[OA\Info(
-	title: 'API Titchavi',
+	title: 'Cloud migration Demo',
 	version: '1.0.0',
-	description: 'Documentation de l\'API Titchavi'
+	description: 'Documentation de l\'API de test de migration cloud'
 )]
 #[OA\Server(
 	url: '/api/v1',
