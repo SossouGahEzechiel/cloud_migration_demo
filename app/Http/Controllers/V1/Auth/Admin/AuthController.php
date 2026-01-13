@@ -140,7 +140,7 @@ class AuthController extends Controller
 			'has_change_password' => true
 		]);
 
-		return response()->json(['success' => true]);
+		return _200();
 	}
 
 	#[OA\Post(
@@ -174,7 +174,7 @@ class AuthController extends Controller
 	public function logout(): JsonResponse
 	{
 		Auth::logout();
-		return response()->json(['success' => true]);
+		return _200();
 	}
 
 	private function generateToken(Admin $user): Admin
